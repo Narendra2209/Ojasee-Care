@@ -1,0 +1,50 @@
+.offers-page {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.offers-list {
+    display: grid;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.offer-item {
+    background: white;
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border-left: 5px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+}
+
+.offer-content h2 {
+    color: var(--color-primary);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.offer-content p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--color-text);
+}
+
+.offer-dates {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    font-weight: 500;
+    background: var(--color-bg-soft);
+    padding: 5px 10px;
+    border-radius: var(--radius-full);
+    display: inline-block;
+}
+
+.no-offers {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+}

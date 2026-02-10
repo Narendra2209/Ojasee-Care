@@ -1,0 +1,111 @@
+.admin-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.login-form {
+    background: white;
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.admin-dashboard {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.admin-tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-tabs button {
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid var(--color-bg-soft);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+}
+
+.admin-tabs button.active {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.admin-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-form {
+    background: white;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.admin-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.admin-list th,
+.admin-list td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-bg-soft);
+}
+
+.admin-list th {
+    background: var(--color-bg-soft);
+    font-weight: 600;
+    color: var(--color-text-light);
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-light);
+    margin-right: 10px;
+    transition: color 0.2s;
+}
+
+.icon-btn:hover {
+    color: var(--color-primary);
+}
+
+.icon-btn.delete:hover {
+    color: var(--color-error);
+}
