@@ -45,6 +45,7 @@ export const ProductProvider = ({ children }) => {
     };
 
     const getActiveOffers = () => {
+        if (!Array.isArray(offers)) return [];
         const today = new Date().toISOString().split('T')[0];
         return offers.filter(offer => offer.startDate <= today && offer.endDate >= today);
     };

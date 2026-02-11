@@ -10,7 +10,7 @@
 }
 
 .checkout-form {
-    background: white;
+    background: var(--color-bg-card);
     padding: 40px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
@@ -43,7 +43,7 @@
 .form-group textarea:focus {
     outline: none;
     border-color: var(--color-primary);
-    background: white;
+    background: var(--color-bg-card);
 }
 
 .place-order-btn {

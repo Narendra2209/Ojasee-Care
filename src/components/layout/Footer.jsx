@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, MapPin, Mail, Phone, MessageCircle } from 'lucide-react';
 import './Footer.css';
 
@@ -11,42 +11,49 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="container footer-container">
+                {/* 1. Brand Section */}
                 <div className="footer-section brand">
                     <div className="footer-brand-header">
                         <img src="/images/logo.png" alt="Ojasee Care" className="footer-logo-img" />
                         <h2 className="footer-logo">Ojasee Care</h2>
                     </div>
-                    <p className="footer-tagline">Powered by Plants. Proven by Results.</p>
+                    <p className="footer-tagline">
+                        Ancient wisdom, modern science. <br />
+                        100% Organic, Premium Ayurvedic Hair & Personal Care.
+                    </p>
                     <div className="social-icons">
-                        <a href="https://www.instagram.com/ojasee.care?igsh=cno5cTJxMmY3Ym9l" target="_blank" rel="noopener noreferrer"><Instagram size={24} /></a>
-                        <a href="#"><Facebook size={24} /></a>
-                        <a href="#"><Twitter size={24} /></a>
+                        <a href="https://www.instagram.com/ojasee.care?igsh=cno5cTJxMmY3Ym9l" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={20} /></a>
+                        <a href="#" aria-label="Facebook"><Facebook size={20} /></a>
+                        <a href="#" aria-label="Twitter"><Twitter size={20} /></a>
                     </div>
                 </div>
 
+                {/* 2. Quick Links Section */}
                 <div className="footer-section links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/products?category=Men">Men's Care</a></li>
-                        <li><a href="/products?category=Women">Women's Care</a></li>
-                        <li><a href="/offers">Offers</a></li>
-                        <li><a href="/contact">Contact</a></li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/products">All Products</Link></li>
+                        <li><Link to="/products?category=Men">Men's Collection</Link></li>
+                        <li><Link to="/products?category=Women">Women's Collection</Link></li>
+                        <li><Link to="/offers">Offers</Link></li>
+                        <li><Link to="/contact">Contact</Link></li>
                     </ul>
                 </div>
 
+                {/* 4. Contact Section */}
                 <div className="footer-section contact">
-                    <h3>Contact Us</h3>
+                    <h3>Get in Touch</h3>
                     <div className="contact-item">
-                        <MapPin size={18} />
-                        <span>123 Ayurvedic Lane, Green City, India</span>
+                        <MapPin size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
+                        <span>123 Ayurvedic Lane, <br />Green City, India</span>
                     </div>
                     <div className="contact-item">
-                        <Phone size={18} />
+                        <Phone size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
                         <span>+91 98765 43210</span>
                     </div>
                     <div className="contact-item">
-                        <Mail size={18} />
+                        <Mail size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
                         <span>support@ojaseecare.com</span>
                     </div>
                     <button className="whatsapp-btn" onClick={handleWhatsApp}>
@@ -55,10 +62,13 @@ const Footer = () => {
                     </button>
                 </div>
             </div>
+
             <div className="footer-bottom">
                 <p>&copy; {new Date().getFullYear()} Ojasee Care. All rights reserved.</p>
-                <div style={{ marginTop: '10px', fontSize: '0.8rem', opacity: 0.7 }}>
-                    <a href="/admin" style={{ color: 'inherit', textDecoration: 'none' }}>Owner Login</a>
+                <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', marginTop: '10px' }}>
+                    <Link to="/admin" style={{ opacity: 0.5, fontSize: '0.8rem', textDecoration: 'none' }}>Admin Login</Link>
+                    <span style={{ opacity: 0.3 }}>|</span>
+                    <span style={{ opacity: 0.5, fontSize: '0.8rem' }}>Made with ❤️ for Nature</span>
                 </div>
             </div>
         </footer>

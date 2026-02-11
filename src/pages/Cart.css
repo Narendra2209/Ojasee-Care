@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     padding: 20px;
-    background: white;
+    background: var(--color-bg-card);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
     margin-bottom: 20px;
@@ -95,7 +95,7 @@
 }
 
 .cart-summary {
-    background: white;
+    background: var(--color-bg-card);
     padding: 30px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);

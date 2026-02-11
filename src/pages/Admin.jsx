@@ -11,6 +11,7 @@ const Admin = () => {
     const [password, setPassword] = useState('');
     const [activeTab, setActiveTab] = useState('products');
     const [isEditing, setIsEditing] = useState(false);
+    const [isEditingOffer, setIsEditingOffer] = useState(false);
 
     // Product Form State
     const [productForm, setProductForm] = useState({
@@ -23,6 +24,53 @@ const Admin = () => {
         images: [], // Array for multiple uploaded images
         tags: ''
     });
+
+    // Offer Form State
+    const [offerForm, setOfferForm] = useState({
+        id: '',
+        title: '',
+        description: '',
+        discount: '',
+        startDate: '',
+        endDate: '',
+        productIds: []
+    });
+
+    const handleOfferSubmit = (e) => {
+        e.preventDefault();
+        const offerData = {
+            ...offerForm,
+            discount: Number(offerForm.discount)
+        };
+
+        if (isEditingOffer) {
+            // updateOffer(offerForm.id, offerData); // assuming updateOffer exists or will be added
+            // For now, we can just add new one or mock update if context doesn't support it tailoredly yet
+            alert("Update feature for offers coming soon. Please delete and recreate.");
+        } else {
+            addOffer(offerData);
+        }
+        resetOfferForm();
+    };
+
+    const handleDeleteOffer = (id) => {
+        if (window.confirm('Are you sure you want to delete this offer?')) {
+            deleteOffer(id);
+        }
+    };
+
+    const resetOfferForm = () => {
+        setOfferForm({
+            id: '',
+            title: '',
+            description: '',
+            discount: '',
+            startDate: '',
+            endDate: '',
+            productIds: []
+        });
+        setIsEditingOffer(false);
+    };
 
     const [username, setUsername] = useState('');
 
@@ -256,8 +304,73 @@ const Admin = () => {
 
             {activeTab === 'offers' && (
                 <div className="admin-section">
-                    <h2>Manage Offers (Feature Coming Soon)</h2>
-                    <p>Offer management logic to be implemented similar to products.</p>
+                    <div className="admin-actions">
+                        <h2>Manage Offers</h2>
+                        <button className="btn btn-primary" onClick={resetOfferForm}>
+                            <Plus size={18} /> Add New Offer
+                        </button>
+                    </div>
+
+                    <form className="admin-form" onSubmit={handleOfferSubmit}>
+                        <div className="form-group">
+                            <label>Offer Title</label>
+                            <input type="text" value={offerForm.title} onChange={(e) => setOfferForm({ ...offerForm, title: e.target.value })} required />
+                        </div>
+                        <div className="form-group">
+                            <label>Discount (%)</label>
+                            <input type="number" value={offerForm.discount} onChange={(e) => setOfferForm({ ...offerForm, discount: e.target.value })} required />
+                        </div>
+                        <div className="form-group">
+                            <label>Applicable Products (Select Multiple)</label>
+                            <select multiple value={offerForm.productIds} onChange={(e) => {
+                                const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+                                setOfferForm({ ...offerForm, productIds: selectedOptions });
+                            }} style={{ height: '100px' }}>
+                                {products.map(p => (
+                                    <option key={p.id} value={p.id}>{p.name}</option>
+                                ))}
+                            </select>
+                            <small>Hold Ctrl (Windows) or Cmd (Mac) to select multiple</small>
+                        </div>
+                        <div className="form-group">
+                            <label>Start Date</label>
+                            <input type="date" value={offerForm.startDate} onChange={(e) => setOfferForm({ ...offerForm, startDate: e.target.value })} required />
+                        </div>
+                        <div className="form-group">
+                            <label>End Date</label>
+                            <input type="date" value={offerForm.endDate} onChange={(e) => setOfferForm({ ...offerForm, endDate: e.target.value })} required />
+                        </div>
+                        <div className="form-group full-width">
+                            <label>Description</label>
+                            <textarea value={offerForm.description} onChange={(e) => setOfferForm({ ...offerForm, description: e.target.value })} rows="3"></textarea>
+                        </div>
+                        <button type="submit" className="btn btn-secondary">{isEditingOffer ? 'Update Offer' : 'Add Offer'}</button>
+                    </form>
+
+                    <div className="admin-list">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Discount</th>
+                                    <th>Validity</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {offers.map(o => (
+                                    <tr key={o.id}>
+                                        <td>{o.title}</td>
+                                        <td>{o.discount}%</td>
+                                        <td>{o.startDate} to {o.endDate}</td>
+                                        <td>
+                                            <button onClick={() => handleDeleteOffer(o.id)} className="icon-btn delete"><Trash2 size={16} /></button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
         </div>

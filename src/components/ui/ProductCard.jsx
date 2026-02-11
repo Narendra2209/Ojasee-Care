@@ -1,44 +1,86 @@
 import React from 'react';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Star } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useProducts } from '../../context/ProductContext';
 import { Link } from 'react-router-dom';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
     const { addToCart } = useCart();
+    const { getActiveOffers } = useProducts();
 
-    // Handle case where products might be missing
     if (!product) return null;
+
+    const activeOffers = getActiveOffers();
+
+    // Calculate Discount
+    const relevantOffer = activeOffers.find(offer =>
+        offer.productIds && offer.productIds.includes(product.id)
+    );
+
+    const hasDiscount = !!relevantOffer;
+    const discountPercentage = hasDiscount ? relevantOffer.discount : 0;
+    const finalPrice = hasDiscount
+        ? Math.round(product.price - (product.price * discountPercentage / 100))
+        : product.price;
+
+    const handleAddToCart = (e) => {
+        e.preventDefault(); // Prevent navigation if clicked on button inside Link
+        addToCart({ ...product, price: finalPrice });
+    };
 
     return (
         <div className="product-card">
-            <div className="product-image-container">
-                <Link to={`/product/${product.id}`} className="image-placeholder" style={{ backgroundImage: `url(${product.image})`, display: 'block', textDecoration: 'none' }}>
-                    {!product.image && <span>{product.name}</span>}
+            <div className="product-image-wrapper">
+                <Link to={`/product/${product.id}`} className="product-link">
+                    {product.image ? (
+                        <img src={product.image} alt={product.name} className="product-image" />
+                    ) : (
+                        <div className="image-placeholder">No Image</div>
+                    )}
                 </Link>
-                <div className="product-overlay">
+
+                {hasDiscount && (
+                    <span className="badge badge-discount">
+                        {discountPercentage}% OFF
+                    </span>
+                )}
+
+                <div className="product-actions-overlay">
                     <button
-                        className="add-to-cart-btn"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            addToCart(product);
-                        }}
-                        aria-label="Add to cart"
+                        className="btn-icon-action"
+                        onClick={handleAddToCart}
+                        aria-label="Add to Cart"
                     >
                         <ShoppingCart size={20} />
-                        Add to Cart
                     </button>
                 </div>
             </div>
-            <div className="product-info">
-                <span className="product-category">{product.category}</span>
-                <Link to={`/product/${product.id}`} style={{ textDecoration: 'none' }}>
-                    <h3 className="product-name">{product.name}</h3>
+
+            <div className="product-details">
+                <div className="product-meta">
+                    <span className="product-category">{product.category}</span>
+                    <div className="product-rating">
+                        <Star size={12} fill="currentColor" />
+                        <span>{product.rating}</span>
+                    </div>
+                </div>
+
+                <Link to={`/product/${product.id}`} className="product-title">
+                    {product.name}
                 </Link>
-                <p className="product-desc">{product.description.substring(0, 60)}...</p>
+
                 <div className="product-footer">
-                    <span className="product-price">₹{product.price}</span>
-                    <div className="product-rating">★ {product.rating}</div>
+                    <div className="product-price-wrapper">
+                        {hasDiscount ? (
+                            <>
+                                <span className="price-original">₹{product.price}</span>
+                                <span className="price-final">₹{finalPrice}</span>
+                            </>
+                        ) : (
+                            <span className="price-final">₹{product.price}</span>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

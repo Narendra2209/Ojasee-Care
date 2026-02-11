@@ -6,7 +6,7 @@
 }
 
 .login-form {
-    background: white;
+    background: var(--color-bg-card);
     padding: 40px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
@@ -36,7 +36,7 @@
 
 .admin-tabs button {
     padding: 10px 20px;
-    background: white;
+    background: var(--color-bg-card);
     border: 1px solid var(--color-bg-soft);
     cursor: pointer;
     border-radius: var(--radius-md);
@@ -57,7 +57,7 @@
 }
 
 .admin-form {
-    background: white;
+    background: var(--color-bg-card);
     padding: 20px;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
@@ -74,7 +74,7 @@
 .admin-list table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
+    background: var(--color-bg-card);
     border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: var(--shadow-sm);

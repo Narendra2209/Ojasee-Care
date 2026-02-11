@@ -1,19 +1,27 @@
-/* Products.css */
+/* Products.css - Premium */
+
 .products-page {
-    padding-top: 40px;
-    padding-bottom: 80px;
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-4xl);
 }
 
 .products-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: var(--space-3xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.products-header h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+    color: var(--color-primary-dark);
 }
 
 .products-subtitle {
-    color: var(--color-text-light);
-    max-width: 600px;
-    margin: 0 auto;
-    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
     line-height: 1.6;
 }
 
@@ -21,36 +29,32 @@
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 40px;
+    gap: var(--space-lg);
 }
 
 .no-products {
     text-align: center;
-    padding: 50px;
-    color: var(--color-text-light);
-    font-size: 1.2rem;
+    padding: var(--space-4xl);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
 }
 
 /* Mobile: Side-by-Side (2 Columns) */
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        /* Smaller gap for mobile */
+        gap: var(--space-sm);
     }
 
-    /* Adjust page padding for mobile */
     .products-page {
-        padding-top: 20px;
-        padding-bottom: 40px;
+        padding-top: var(--space-xl);
+        padding-bottom: var(--space-2xl);
     }
 
     .products-header {
-        margin-bottom: 30px;
-    }
-
-    .section-title {
-        font-size: 2rem;
-        margin-bottom: 16px;
+        margin-bottom: var(--space-xl);
+        padding: 0 var(--space-md);
     }
 }

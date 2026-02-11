@@ -2,12 +2,17 @@ import { useState, useEffect } from 'react';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useProducts } from '../../context/ProductContext';
 import './Navbar.css';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { cart } = useCart();
+    const { getActiveOffers } = useProducts();
+
+    const activeOffers = getActiveOffers();
+    const hasActiveOffers = activeOffers.length > 0;
 
     const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -30,7 +35,6 @@ const Navbar = () => {
                 </Link>
 
                 {/* Desktop Menu */}
-                {/* Desktop Menu */}
                 <div className="navbar-links desktop-only">
                     <Link to="/">Home</Link>
                     <div className="nav-dropdown">
@@ -40,7 +44,7 @@ const Navbar = () => {
                             <Link to="/products?category=Women">Women</Link>
                         </div>
                     </div>
-                    <Link to="/offers">Offers</Link>
+                    {hasActiveOffers && <Link to="/offers">Offers</Link>}
                     <Link to="/contact">Contact</Link>
                 </div>
 
@@ -62,7 +66,7 @@ const Navbar = () => {
                         <Link to="/products?category=Men" onClick={toggleMenu} className="submenu-item">Men</Link>
                         <Link to="/products?category=Women" onClick={toggleMenu} className="submenu-item">Women</Link>
                     </div>
-                    <Link to="/offers" onClick={toggleMenu}>Offers</Link>
+                    {hasActiveOffers && <Link to="/offers" onClick={toggleMenu}>Offers</Link>}
                     <Link to="/contact" onClick={toggleMenu}>Contact</Link>
                 </div>
             </div>
