@@ -11,12 +11,12 @@ const Contact = () => {
                     <div className="info-card">
                         <Phone size={32} className="info-icon" />
                         <h3>Phone</h3>
-                        <p>+91 98765 43210</p>
+                        <p>+91 73497 06337</p>
                     </div>
                     <div className="info-card">
                         <Mail size={32} className="info-icon" />
                         <h3>Email</h3>
-                        <p>support@ojaseecare.com</p>
+                        <p>pavankr09official@gmail.com</p>
                     </div>
                     <div className="info-card">
                         <MapPin size={32} className="info-icon" />
@@ -28,7 +28,7 @@ const Contact = () => {
                 <div className="whatsapp-redirect">
                     <h2>Have a question?</h2>
                     <p>We are available specifically on WhatsApp for all enquiries.</p>
-                    <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="btn btn-primary whatsapp-chat-btn">
+                    <a href="https://wa.me/917349706337" target="_blank" rel="noreferrer" className="btn btn-primary whatsapp-chat-btn">
                         <MessageCircle size={24} />
                         Chat on WhatsApp
                     </a>

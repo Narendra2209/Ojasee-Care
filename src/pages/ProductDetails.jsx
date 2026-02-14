@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 const ProductDetails = () => {
     const { id } = useParams();
-    const { products } = useProducts();
+    const { products, getActiveOffers } = useProducts();
     const { addToCart } = useCart();
 
     const product = products.find(p => String(p.id) === id);
@@ -25,6 +25,18 @@ const ProductDetails = () => {
     const suggestedProducts = products
         .filter(p => p.category === product.category && p.id !== product.id)
         .slice(0, 4);
+
+    // Calculate Discount
+    const activeOffers = getActiveOffers();
+    const relevantOffer = activeOffers.find(offer =>
+        offer.productIds && offer.productIds.includes(product.id)
+    );
+
+    const hasDiscount = !!relevantOffer;
+    const discountPercentage = hasDiscount ? relevantOffer.discount : 0;
+    const finalPrice = hasDiscount
+        ? Math.round(product.price - (product.price * discountPercentage / 100))
+        : product.price;
 
     // Mock Reviews
     const reviews = [
@@ -67,9 +79,48 @@ const ProductDetails = () => {
                             <span>({reviews.length} Reviews)</span>
                         </div>
 
-                        <div className="detail-price">₹{product.price}</div>
+                        <div className="detail-price-wrapper">
+                            {hasDiscount ? (
+                                <>
+                                    <span className="detail-price-original">₹{product.price}</span>
+                                    <span className="detail-price-final">₹{finalPrice}</span>
+                                    <span className="detail-discount-badge">{discountPercentage}% OFF</span>
+                                </>
+                            ) : (
+                                <span className="detail-price">₹{product.price}</span>
+                            )}
+                        </div>
 
                         <p className="detail-description">{product.description}</p>
+
+                        {product.ingredients && (
+                            <div className="detail-ingredients">
+                                <h3>Ingredients</h3>
+                                <p>{product.ingredients}</p>
+                            </div>
+                        )}
+
+                        {product.video && (
+                            <div className="detail-video">
+                                <h3>Product Video</h3>
+                                {/youtube|youtu\.be/.test(product.video) ? (
+                                    <div className="video-wrapper">
+                                        <iframe
+                                            src={`https://www.youtube.com/embed/${product.video.split('v=')[1] ? product.video.split('v=')[1].split('&')[0] : product.video.split('/').pop()}`}
+                                            title="Product Video"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        ></iframe>
+                                    </div>
+                                ) : (
+                                    <video controls width="100%" className="product-video">
+                                        <source src={product.video} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                )}
+                            </div>
+                        )}
 
                         <div className="detail-features">
                             <div className="feature">
@@ -82,7 +133,7 @@ const ProductDetails = () => {
                             </div>
                         </div>
 
-                        <button className="btn btn-primary detail-add-cart" onClick={() => addToCart(product)}>
+                        <button className="btn btn-primary detail-add-cart" onClick={() => addToCart({ ...product, price: finalPrice })}>
                             <ShoppingCart size={20} />
                             Add to Cart
                         </button>

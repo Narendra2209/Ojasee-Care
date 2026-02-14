@@ -19,25 +19,28 @@ const Checkout = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Construct WhatsApp Message
-        const productsList = cart.map(item => `- ${item.name} x ${item.quantity}`).join('%0A');
+        // Construct WhatsApp Message - URI Encoded
+        const productsList = cart.map(item => `- ${item.name} (x${item.quantity}) - ₹${item.price}`).join('\n');
         const totalAmount = getFinalTotal();
-        const deliveryStatus = getDeliveryCharge() === 0 ? 'Free' : `₹${getDeliveryCharge()}`;
+        const deliveryCharge = getDeliveryCharge();
+        const deliveryText = deliveryCharge === 0 ? 'Free' : `₹${deliveryCharge}`;
 
-        const message = `*New Order - Ojasee Care*%0A%0A` +
-            `*Name:* ${formData.name}%0A` +
-            `*Mobile:* ${formData.mobile}%0A` +
-            `*Address:* ${formData.address}%0A` +
-            `*Pincode:* ${formData.pincode}%0A%0A` +
-            `*Products:*%0A${productsList}%0A%0A` +
-            `*Total Amount:* ₹${totalAmount}%0A` +
-            `*Delivery:* ${deliveryStatus}`;
+        const messageText = `*New Order: Ojasee Care*\n\n` +
+            `*Name:* ${formData.name}\n` +
+            `*Mobile:* ${formData.mobile}\n` +
+            `*Address:* ${formData.address}\n` +
+            `*Pincode:* ${formData.pincode}\n\n` +
+            `*Order Details:*\n${productsList}\n\n` +
+            `*Delivery:* ${deliveryText}\n` +
+            `*Total:* ₹${totalAmount}`;
+
+        const encodedMessage = encodeURIComponent(messageText);
 
         // Redirect to WhatsApp
-        const whatsappUrl = `https://wa.me/919876543210?text=${message}`; // Replace with actual number
+        const whatsappUrl = `https://wa.me/917349706337?text=${encodedMessage}`;
         window.open(whatsappUrl, '_blank');
 
-        // Clear cart (optional, maybe wait for confirmation but for this flow we assume sent)
+        // Clear cart
         clearCart();
     };
 

@@ -75,15 +75,6 @@ const Home = () => {
                         <h2 className="section-title">Shop by Category</h2>
                     </div>
                     <div className="categories-split">
-                        <Link to="/products?category=Men" className="category-card men">
-                            <div className="category-content">
-                                <h3>Men's Essentials</h3>
-                                <span className="btn-link">Explore <ArrowRight size={16} /></span>
-                            </div>
-                            <div className="category-image-wrapper">
-                                <img src="https://images.unsplash.com/photo-1621609764095-6b2a4d34766b?q=80&w=1974" alt="Men's Collection" />
-                            </div>
-                        </Link>
                         <Link to="/products?category=Women" className="category-card women">
                             <div className="category-content">
                                 <h3>Women's Beauty</h3>
@@ -91,6 +82,15 @@ const Home = () => {
                             </div>
                             <div className="category-image-wrapper">
                                 <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1974" alt="Women's Collection" />
+                            </div>
+                        </Link>
+                        <Link to="/products?category=Men" className="category-card men">
+                            <div className="category-content">
+                                <h3>Men's Essentials</h3>
+                                <span className="btn-link">Explore <ArrowRight size={16} /></span>
+                            </div>
+                            <div className="category-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=1974" alt="Men's Collection" />
                             </div>
                         </Link>
                     </div>

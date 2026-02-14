@@ -22,7 +22,9 @@ const Admin = () => {
         description: '',
         mainImage: '', // URL input
         images: [], // Array for multiple uploaded images
-        tags: ''
+        tags: '',
+        ingredients: '',
+        video: ''
     });
 
     // Offer Form State
@@ -82,10 +84,10 @@ const Admin = () => {
         const year = today.getFullYear();
         const dynamicPassword = `${day}${month}${year}`;
 
-        if (username.toLowerCase() === 'pawan' && password === dynamicPassword) {
+        if (username.toLowerCase() === 'pavan' && password === dynamicPassword) {
             setIsAuthenticated(true);
         } else {
-            alert(`Invalid Credentials. Please use username 'pawan' and today's date (DDMMYYYY) as password.`);
+            alert(`Invalid Credentials. Please use username 'pawan' and today's date  as password.`);
         }
     };
 
@@ -137,7 +139,9 @@ const Admin = () => {
             price: '',
             description: '',
             image: '',
-            tags: ''
+            tags: '',
+            ingredients: '',
+            video: ''
         });
         setIsEditing(false);
     };
@@ -159,7 +163,7 @@ const Admin = () => {
                     <div className="form-group" style={{ marginBottom: '15px' }}>
                         <input
                             type="password"
-                            placeholder="Password (DDMMYYYY)"
+                            placeholder="Password "
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             style={{ width: '100%', padding: '10px' }}
@@ -270,6 +274,49 @@ const Admin = () => {
                             <label>Description</label>
                             <textarea value={productForm.description} onChange={(e) => setProductForm({ ...productForm, description: e.target.value })} rows="3"></textarea>
                         </div>
+                        <div className="form-group full-width">
+                            <label>Ingredients</label>
+                            <textarea value={productForm.ingredients} onChange={(e) => setProductForm({ ...productForm, ingredients: e.target.value })} rows="3"></textarea>
+                        </div>
+                        <div className="form-group full-width">
+                            <label>Video (URL or Upload)</label>
+                            <input
+                                type="text"
+                                value={productForm.video && !productForm.video.startsWith('data:') ? productForm.video : ''}
+                                onChange={(e) => setProductForm({ ...productForm, video: e.target.value })}
+                                placeholder="Paste YouTube/MP4 Link here..."
+                            />
+                            <div style={{ marginTop: '10px' }}>
+                                <label className="upload-btn">
+                                    <input
+                                        type="file"
+                                        accept="video/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                // Check file size (e.g., limit to 50MB for browser performance)
+                                                if (file.size > 50 * 1024 * 1024) {
+                                                    alert("File size too large! Please upload a video smaller than 50MB.");
+                                                    return;
+                                                }
+                                                const reader = new FileReader();
+                                                reader.onloadend = () => {
+                                                    setProductForm(prev => ({ ...prev, video: reader.result }));
+                                                };
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }}
+                                        style={{ display: 'none' }}
+                                    />
+                                    <span style={{ cursor: 'pointer', color: 'var(--color-primary)', border: '1px dashed var(--color-primary)', padding: '10px', borderRadius: '8px', display: 'inline-block' }}>
+                                        {productForm.video && productForm.video.startsWith('data:') ? 'Change Video File' : '+ Upload Video File'}
+                                    </span>
+                                </label>
+                                {productForm.video && productForm.video.startsWith('data:') && (
+                                    <span style={{ marginLeft: '10px', fontSize: '12px', color: 'green' }}>✓ Video Loaded</span>
+                                )}
+                            </div>
+                        </div>
                         <button type="submit" className="btn btn-secondary">{isEditing ? 'Update Product' : 'Add Product'}</button>
                     </form>
 
@@ -299,81 +346,83 @@ const Admin = () => {
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div >
             )}
 
-            {activeTab === 'offers' && (
-                <div className="admin-section">
-                    <div className="admin-actions">
-                        <h2>Manage Offers</h2>
-                        <button className="btn btn-primary" onClick={resetOfferForm}>
-                            <Plus size={18} /> Add New Offer
-                        </button>
-                    </div>
+            {
+                activeTab === 'offers' && (
+                    <div className="admin-section">
+                        <div className="admin-actions">
+                            <h2>Manage Offers</h2>
+                            <button className="btn btn-primary" onClick={resetOfferForm}>
+                                <Plus size={18} /> Add New Offer
+                            </button>
+                        </div>
 
-                    <form className="admin-form" onSubmit={handleOfferSubmit}>
-                        <div className="form-group">
-                            <label>Offer Title</label>
-                            <input type="text" value={offerForm.title} onChange={(e) => setOfferForm({ ...offerForm, title: e.target.value })} required />
-                        </div>
-                        <div className="form-group">
-                            <label>Discount (%)</label>
-                            <input type="number" value={offerForm.discount} onChange={(e) => setOfferForm({ ...offerForm, discount: e.target.value })} required />
-                        </div>
-                        <div className="form-group">
-                            <label>Applicable Products (Select Multiple)</label>
-                            <select multiple value={offerForm.productIds} onChange={(e) => {
-                                const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-                                setOfferForm({ ...offerForm, productIds: selectedOptions });
-                            }} style={{ height: '100px' }}>
-                                {products.map(p => (
-                                    <option key={p.id} value={p.id}>{p.name}</option>
-                                ))}
-                            </select>
-                            <small>Hold Ctrl (Windows) or Cmd (Mac) to select multiple</small>
-                        </div>
-                        <div className="form-group">
-                            <label>Start Date</label>
-                            <input type="date" value={offerForm.startDate} onChange={(e) => setOfferForm({ ...offerForm, startDate: e.target.value })} required />
-                        </div>
-                        <div className="form-group">
-                            <label>End Date</label>
-                            <input type="date" value={offerForm.endDate} onChange={(e) => setOfferForm({ ...offerForm, endDate: e.target.value })} required />
-                        </div>
-                        <div className="form-group full-width">
-                            <label>Description</label>
-                            <textarea value={offerForm.description} onChange={(e) => setOfferForm({ ...offerForm, description: e.target.value })} rows="3"></textarea>
-                        </div>
-                        <button type="submit" className="btn btn-secondary">{isEditingOffer ? 'Update Offer' : 'Add Offer'}</button>
-                    </form>
+                        <form className="admin-form" onSubmit={handleOfferSubmit}>
+                            <div className="form-group">
+                                <label>Offer Title</label>
+                                <input type="text" value={offerForm.title} onChange={(e) => setOfferForm({ ...offerForm, title: e.target.value })} required />
+                            </div>
+                            <div className="form-group">
+                                <label>Discount (%)</label>
+                                <input type="number" value={offerForm.discount} onChange={(e) => setOfferForm({ ...offerForm, discount: e.target.value })} required />
+                            </div>
+                            <div className="form-group">
+                                <label>Applicable Products (Select Multiple)</label>
+                                <select multiple value={offerForm.productIds} onChange={(e) => {
+                                    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+                                    setOfferForm({ ...offerForm, productIds: selectedOptions });
+                                }} style={{ height: '100px' }}>
+                                    {products.map(p => (
+                                        <option key={p.id} value={p.id}>{p.name}</option>
+                                    ))}
+                                </select>
+                                <small>Hold Ctrl (Windows) or Cmd (Mac) to select multiple</small>
+                            </div>
+                            <div className="form-group">
+                                <label>Start Date</label>
+                                <input type="date" value={offerForm.startDate} onChange={(e) => setOfferForm({ ...offerForm, startDate: e.target.value })} required />
+                            </div>
+                            <div className="form-group">
+                                <label>End Date</label>
+                                <input type="date" value={offerForm.endDate} onChange={(e) => setOfferForm({ ...offerForm, endDate: e.target.value })} required />
+                            </div>
+                            <div className="form-group full-width">
+                                <label>Description</label>
+                                <textarea value={offerForm.description} onChange={(e) => setOfferForm({ ...offerForm, description: e.target.value })} rows="3"></textarea>
+                            </div>
+                            <button type="submit" className="btn btn-secondary">{isEditingOffer ? 'Update Offer' : 'Add Offer'}</button>
+                        </form>
 
-                    <div className="admin-list">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Discount</th>
-                                    <th>Validity</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {offers.map(o => (
-                                    <tr key={o.id}>
-                                        <td>{o.title}</td>
-                                        <td>{o.discount}%</td>
-                                        <td>{o.startDate} to {o.endDate}</td>
-                                        <td>
-                                            <button onClick={() => handleDeleteOffer(o.id)} className="icon-btn delete"><Trash2 size={16} /></button>
-                                        </td>
+                        <div className="admin-list">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Discount</th>
+                                        <th>Validity</th>
+                                        <th>Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {offers.map(o => (
+                                        <tr key={o.id}>
+                                            <td>{o.title}</td>
+                                            <td>{o.discount}%</td>
+                                            <td>{o.startDate} to {o.endDate}</td>
+                                            <td>
+                                                <button onClick={() => handleDeleteOffer(o.id)} className="icon-btn delete"><Trash2 size={16} /></button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 };
 

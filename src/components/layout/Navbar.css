@@ -7,7 +7,8 @@
 
 .navbar {
     position: fixed;
-    top: 0;
+    top: 30px;
+    /* Height of announcement bar */
     left: 0;
     width: 100%;
     height: var(--header-height);
@@ -272,5 +273,47 @@
 
     .navbar {
         padding: 0 var(--space-md);
+    }
+
+    .navbar {
+        padding: 0 var(--space-md);
+    }
+}
+
+/* Announcement Bar */
+.announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: var(--color-primary);
+    /* Uses theme primary color */
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    /* Above navbar */
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.marquee-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-100%, 0);
     }
 }

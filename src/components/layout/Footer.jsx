@@ -5,7 +5,7 @@ import './Footer.css';
 const Footer = () => {
     const handleWhatsApp = () => {
         // Redirect logic handled in Contact page or global context, but simple link here
-        window.open(`https://wa.me/919876543210`, '_blank');
+        window.open(`https://wa.me/917349706337`, '_blank');
     };
 
     return (
@@ -50,11 +50,11 @@ const Footer = () => {
                     </div>
                     <div className="contact-item">
                         <Phone size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
-                        <span>+91 98765 43210</span>
+                        <span>+91 73497 06337</span>
                     </div>
                     <div className="contact-item">
                         <Mail size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
-                        <span>support@ojaseecare.com</span>
+                        <span>pavankr09official@gmail.com</span>
                     </div>
                     <button className="whatsapp-btn" onClick={handleWhatsApp}>
                         <MessageCircle size={18} />
