@@ -29,7 +29,9 @@
 .footer-logo-img {
     height: 48px;
     width: auto;
-    filter: brightness(0) invert(1) opacity(0.9);
+    height: 48px;
+    width: auto;
+    /* Removed filter to show original logo colors */
 }
 
 .footer-logo {

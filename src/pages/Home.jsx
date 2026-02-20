@@ -15,13 +15,32 @@ const Home = () => {
         <div className="home-page">
             {/* Hero Section */}
             <section className="hero-section">
-                <div className="hero-background"></div>
+                <video
+                    className="hero-video"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    poster="https://images.unsplash.com/photo-1595152452543-e5cca283f58b?q=80&w=2070"
+                >
+                    <source src="/videos/hero.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <div className="hero-overlay" style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5))',
+                    zIndex: 1
+                }}></div>
                 <div className="container hero-container">
                     <motion.div
                         className="hero-content"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
                     >
                         <span className="hero-subtitle">Pure Ayurvedic Alchemy</span>
                         <h1 className="hero-title">
@@ -90,7 +109,7 @@ const Home = () => {
                                 <span className="btn-link">Explore <ArrowRight size={16} /></span>
                             </div>
                             <div className="category-image-wrapper">
-                                <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=1974" alt="Men's Collection" />
+                                <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=2031" alt="Men's Collection" />
                             </div>
                         </Link>
                     </div>
@@ -142,7 +161,7 @@ const Home = () => {
                             <div className="stars">★★★★★</div>
                             <p className="review-text">"The Beard Cleansing Bar has completely changed my grooming routine. The scent is masculine and subtle."</p>
                             <div className="review-author">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul" />
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200" style={{ objectPosition: 'top' }} alt="Rahul" />
                                 <div>
                                     <span className="name">Rahul Khanna</span>
                                     <span className="verified">Verified Buyer</span>

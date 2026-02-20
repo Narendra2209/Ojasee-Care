@@ -46,7 +46,7 @@ const Footer = () => {
                     <h3>Get in Touch</h3>
                     <div className="contact-item">
                         <MapPin size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
-                        <span>123 Ayurvedic Lane, <br />Green City, India</span>
+                        <span>10th cross Kanaka Nagara , Near Veeranapalya Railway gate , Bangalore 560032</span>
                     </div>
                     <div className="contact-item">
                         <Phone size={18} style={{ flexShrink: 0, marginTop: '2px' }} />
