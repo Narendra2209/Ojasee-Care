@@ -52,6 +52,7 @@ const Navbar = () => {
                             <div className="dropdown-menu">
                                 <Link to="/products?category=Men">Men</Link>
                                 <Link to="/products?category=Women">Women</Link>
+                                <Link to="/all-products">All Products Inventory</Link>
                             </div>
                         </div>
                         {hasActiveOffers && <Link to="/offers">Offers</Link>}
@@ -75,6 +76,7 @@ const Navbar = () => {
                             <span className="mobile-submenu-title">Products</span>
                             <Link to="/products?category=Men" onClick={toggleMenu} className="submenu-item">Men</Link>
                             <Link to="/products?category=Women" onClick={toggleMenu} className="submenu-item">Women</Link>
+                            <Link to="/all-products" onClick={toggleMenu} className="submenu-item">All Products Inventory</Link>
                         </div>
                         {hasActiveOffers && <Link to="/offers" onClick={toggleMenu}>Offers</Link>}
                         <Link to="/contact" onClick={toggleMenu}>Contact</Link>

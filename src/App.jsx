@@ -7,6 +7,8 @@ import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Admin from './pages/Admin';
+import AdminProducts from './pages/AdminProducts';
+import AllProducts from './pages/AllProducts';
 import Offers from './pages/Offers';
 import Contact from './pages/Contact';
 import ProductDetails from './pages/ProductDetails';
@@ -38,6 +40,8 @@ function App() {
                                 <Route path="/cart" element={<Cart />} />
                                 <Route path="/checkout" element={<Checkout />} />
                                 <Route path="/admin" element={<Admin />} />
+                                <Route path="/admin-products" element={<AdminProducts />} />
+                                <Route path="/all-products" element={<AllProducts />} />
                                 <Route path="/offers" element={<Offers />} />
                                 <Route path="/contact" element={<Contact />} />
                             </Routes>

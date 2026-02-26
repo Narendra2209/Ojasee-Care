@@ -46,18 +46,32 @@ const Admin = () => {
         };
 
         if (isEditingOffer) {
-            // updateOffer(offerForm.id, offerData); // assuming updateOffer exists or will be added
-            // For now, we can just add new one or mock update if context doesn't support it tailoredly yet
             alert("Update feature for offers coming soon. Please delete and recreate.");
         } else {
-            addOffer(offerData);
+            addOffer(offerData)
+                .then((result) => {
+                    alert('✓ Offer added successfully!');
+                    console.log(`Offer ${result.id} added successfully`);
+                    resetOfferForm();
+                })
+                .catch((error) => {
+                    console.error('Failed to add offer:', error);
+                    alert(`✗ Failed to add offer: ${error.message}`);
+                });
         }
-        resetOfferForm();
     };
 
     const handleDeleteOffer = (id) => {
         if (window.confirm('Are you sure you want to delete this offer?')) {
-            deleteOffer(id);
+            deleteOffer(id)
+                .then(() => {
+                    alert('✓ Offer deleted successfully!');
+                    console.log('Offer deleted successfully');
+                })
+                .catch((error) => {
+                    console.error('Failed to delete offer:', error);
+                    alert(`✗ Failed to delete offer: ${error.message}`);
+                });
         }
     };
 
@@ -110,11 +124,28 @@ const Admin = () => {
         };
 
         if (isEditing) {
-            updateProduct(productForm.id, productData);
+            updateProduct(productForm.id, productData)
+                .then(() => {
+                    alert('✓ Product updated successfully!');
+                    console.log('Product updated successfully');
+                    resetForm();
+                })
+                .catch((error) => {
+                    console.error('Failed to update product:', error);
+                    alert(`✗ Failed to update product: ${error.message}`);
+                });
         } else {
-            addProduct({ ...productData, rating: 0, reviews: 0 }); // New products start with 0 rating
+            addProduct({ ...productData, rating: 0, reviews: 0 })
+                .then((result) => {
+                    alert('✓ Product added successfully! It will appear on all pages.');
+                    console.log(`Product ${result.id} added successfully`);
+                    resetForm();
+                })
+                .catch((error) => {
+                    console.error('Failed to add product:', error);
+                    alert(`✗ Failed to add product: ${error.message}`);
+                });
         }
-        resetForm();
     };
 
     const handleEditProduct = (product) => {
@@ -127,7 +158,15 @@ const Admin = () => {
 
     const handleDeleteProduct = (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
-            deleteProduct(id);
+            deleteProduct(id)
+                .then(() => {
+                    alert('✓ Product deleted successfully!');
+                    console.log('Product deleted successfully');
+                })
+                .catch((error) => {
+                    console.error('Failed to delete product:', error);
+                    alert(`✗ Failed to delete product: ${error.message}`);
+                });
         }
     };
 

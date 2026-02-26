@@ -1,0 +1,19 @@
+/* AdminProducts page styles (reuses Admin.css classes) */
+.admin-products-container {
+    padding: 20px;
+}
+
+.products-header {
+    margin-bottom: 30px;
+}
+
+.products-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--color-text);
+}
+
+.products-header p {
+    color: #666;
+    font-size: 1rem;
+}

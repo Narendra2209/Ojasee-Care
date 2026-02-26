@@ -21,7 +21,7 @@ const Contact = () => {
                     <div className="info-card">
                         <MapPin size={32} className="info-icon" />
                         <h3>Address</h3>
-                        <p>123 Ayurvedic Lane,<br />Green City, India</p>
+                        <p>10th cross Kanaka Nagara,<br />Near Veeranapalya Railway gate,<br />Bangalore 560032</p>
                     </div>
                 </div>
 
