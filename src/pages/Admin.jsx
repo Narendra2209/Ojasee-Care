@@ -105,6 +105,15 @@ const Admin = () => {
         }
     };
 
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        setUsername('');
+        setPassword('');
+        resetForm();
+        resetOfferForm();
+        setActiveTab('products');
+    };
+
     const handleProductSubmit = (e) => {
         e.preventDefault();
         const combinedImages = [
@@ -217,7 +226,12 @@ const Admin = () => {
     return (
         <div className="admin-dashboard container">
             <header className="admin-header">
-                <h1>Admin Dashboard</h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                    <h1>Admin Dashboard</h1>
+                    <button onClick={handleLogout} className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '14px' }}>
+                        Logout
+                    </button>
+                </div>
                 <div className="admin-tabs">
                     <button className={activeTab === 'products' ? 'active' : ''} onClick={() => setActiveTab('products')}>Products</button>
                     <button className={activeTab === 'offers' ? 'active' : ''} onClick={() => setActiveTab('offers')}>Offers</button>

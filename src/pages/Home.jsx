@@ -90,7 +90,7 @@ const Home = () => {
             </section>
 
             {/* Product Benefits - Hair & Scalp Care */}
-            <section className="section solutions-section">
+            {/* <section className="section solutions-section">
                 <div className="container">
                     <div className="section-header text-center">
                         <span className="section-subtitle">Targeted Solutions</span>
@@ -155,7 +155,7 @@ const Home = () => {
                         </motion.div>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* Shop by Category - Split Layout */}
             <section className="section categories-section">
